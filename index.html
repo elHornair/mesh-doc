@@ -236,7 +236,26 @@
 
         <h2>Packet-Forwarding</h2>
         <p>
-            Placeholder
+            Erhält ein Knoten ein Nachrichtenpaket, ist es in den meisten Fällen nicht für ihn selbst bestimmt. In
+            diesen Fällen muss der Knoten das Paket gemäss dem Paket-Ziel weiterleiten<span class="footnote">Englisch:
+            To forward</span>. Dazu wird in der Routingtabelle nachgeschlagen, ob es für das entsprechende Ziel einen
+            Eintrag gibt. Wenn ja, wird das Paket an den entsprechenden Nachbarn weitergeleitet. Falls der Nachbar nicht
+            bekannt ist, bleibt dem Knoten nichts anderes übrig, als das Netzwerk mit Paketen zu fluten. Dabei wird das
+            Paket an jeden bekannten Nachbarn geschickt, in der Hoffnung, dass sich darunter auch der richtige befindet.
+        </p>
+        <!--TODO: Bildchen mit Flooding -->
+        <p>
+            Falls das Netzwerk ringförmig verbundene Knoten hat, kann es passieren, dass das gleiche Paket nach dem
+            Weiterleiten durch Knoten A ein weiteres Mal bei A ankommt. Dies ist der Fall, wenn A flutet und der
+            letzte Knoten im Ring ebenfalls flutet - Dann schickt der letzte Knoten das Paket unter anderem wieder an A.
+        </p>
+        <!--TODO: Bildchen mit kreisförmiger Architektur -->
+        <p>
+            Dieser Mechanismus birgt die Gefahr, dass Pakete unendlich lange zwischen Knoten herumgeschickt werden. Dies
+            wäre einerseits ineffizient und würde andererseits irgendwann zu einer Überlastung des Netzwerks führen.
+            Deshalbt führt jeder Knoten eine schwarze Liste mit Paketen, die er bereits einmal weitergeleitet hat. Dazu
+            wird die ID<span class="footnote">Siehe Aufgabenstellung</span> des Pakets verwendet. Erhält ein Knoten nun
+            ein Paket, das bereits in seiner schwarzen Liste eingetragen ist, verwirft er es, anstatt es weiterzuleiten.
         </p>
 
         <h2>Pingback</h2>

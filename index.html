@@ -83,11 +83,69 @@
     </div>
 
     <div class="chapter">
-        <h1>Placeholder</h1>
+        <h1>Konzept der Umsetzung</h1>
 
-        <h2>Placeholder</h2>
+        <h2>Start eines Knoten?</h2>
+        <p>
+            - Delegieren von Packet-Bearbeitung an Threads
+        </p>
+
+        <h2>Handshake</h2>
         <p>
             Placeholder
+        </p>
+
+        <h2>Router</h2>
+        <p>
+            Placeholder
+        </p>
+
+        <h2>Pingback</h2>
+        <p>
+            Placeholder
+        </p>
+    </div>
+
+    <div class="chapter">
+        <h1>Probleme und Lösungen</h1>
+
+        <h2>Concurrency-Problem</h2>
+        <p>
+            - mutexe verwenden
+        </p>
+
+        <h2>Problem, dass man nicht weiss, von wem das OK-Paket kommt</h2>
+        <p>
+            - Node, der z.B. auf Port 3334 läuft, macht fürs senden eines Packets eine neue Verbindung auf -> kann man also nicht benutzen
+            - Lösung: Ans Ende der Nachricht wird immer noch der Absender-Port angehängt -> Paket wird deshalb nicht grösser,
+              aber Kapazität der Nachricht wird auf 122 Byte verkleinert
+        </p>
+
+        <h2>Riesige Routing-Tabelle</h2>
+        <p>
+            - Modulo 255 rechnen
+        </p>
+
+        <h2>Segfaults</h2>
+        <p>
+            - GDB hat geholfen
+        </p>
+    </div>
+
+    <div class="chapter">
+        <h1>Ungelöste Probleme</h1>
+
+        <h2>Ports bleiben manchmal besetzt</h2>
+        <p>
+            - Nach Laufen des Testprogramms (nicht immer, nicht reproduzierbar)
+            - Testprogramm hat aber kein Interface, über das man ihm mitteilen kann, dass ein Port schon besetzt ist
+            - Mögliche Lsg: Auf fixem port einen zentralen Node starten, der Aliase verwaltet
+        </p>
+
+        <h2>Ausgabe muss gepadded werden</h2>
+        <p>
+            - No Clue why, debugged for several hours
+            - Solange Länge von Teststring nicht variiert, kein Problem :)
         </p>
     </div>
 

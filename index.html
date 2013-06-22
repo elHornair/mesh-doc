@@ -258,10 +258,32 @@
             ein Paket, das bereits in seiner schwarzen Liste eingetragen ist, verwirft er es, anstatt es weiterzuleiten.
         </p>
 
-        <h2>Pingback</h2>
+        <h2>Erreichen des Ziels</h2>
         <p>
-            Placeholder
-            - irgendwo sagen, dass man Pakete in beide Richtungen schicken kann
+            Da Nachrichtenpakete immer in beide Richtungen geschickt werden können, kann die Endstation eines Pakets
+            sowohl der Quell-, als auch der Zielknoten sein. Nach einer bestimmten Zeit wird jedes Nachrichtenpaket
+            sein Ziel erreichen. Tritt dieser Fall ein, soll das Paket nicht mehr weitergeschickt werden. Allerdings
+            wird aus dem Nachrichtenpaket ein OK-Paket mit gleicher ID<span class="footnote">Siehe
+            Aufgabenstellung</span> erstellt und an den ursprünglichen Absender
+            zurückgeschickt um diesen zu informieren, dass die Nachricht angekommen ist. Für das Funktionieren des
+            Testprogramms muss zu diesem Zeitpunkt ausserdem der Inhalt der Nachricht in der Standardausgabe
+            (<i>stdout</i>) ausgegeben werden.
+        </p>
+        <p>
+            Beim Rückweg des Pakets als OK-Paket gestaltet sich das Routing sehr einfach, da optimale Route bereits
+            bekannt bekannt ist: Jeder Knoten, der in der Route vorkommt, hat ja das ursprüngliche Paket schon einmal
+            empfangen und hat deshalb einen entsprechenden Eintrag in der Routingtabelle. So weiss jeder Knoten sofort,
+            an welchen Nachbarn er das Paket weiterleiten muss. Sollte sich aus unerfindlichen Gründen einmal kein
+            Eintrag in der Routingtabelle finden, der dem Paket den Weg weist, wird wie gehabt das Netzwerk geflutet.
+        </p>
+        <p>
+            Da ein OK-Paket die gleiche ID hat, wie das zu ihm gehörende Nachrichtenpaket, sind die IDs der OK-Pakete
+            im Normalfall bereits in der schwarzen Liste erfasst. Damit die OK-Pakete den ursprünglichen Absender einer
+            Nachricht trotzdem erreichen können, wird die schwarzse Liste beim Senden von OK-Paketen nicht beachtet.
+        </p>
+        <p>
+            Sobald ein OK-Paket wieder beim ursprünglichen Absender der Nachricht angekommen ist, gibt dieser eine
+            Erfolgsmeldung aus. Die Bearbeitung dieses Pakets ist somit für das Netzwerk beendet.
         </p>
     </div>
 

@@ -142,17 +142,58 @@
     <div class="chapter">
         <h1>Konzept der Umsetzung</h1>
 
-        <h2>Start eines Knoten?</h2>
+        <h2>Funktionsweise Knoten</h2>
         <p>
-            - Delegieren von Packet-Bearbeitung an Threads
+            Das implementierte Netz<span class="footnote">Englisch: Mesh</span> besteht aus beliebig vielen Knoten. In
+            der Aufgabenstellung werden diese Mesh-Switches genannt. Ein einzelner Knoten wird mit Hilfe des bereits
+            definierten Interfaces<span class="footnote">Siehe Aufgabenstellung</span> erstellt. Beim Starten eines
+            Knotens wird dessen Art (Startknoten, Zielknoten oder Zwischenknoten) gespeichert. Der entsprechende
+            TCP-Port wird geöffnet und der Knoten wartet auf ein ankommendes Paket. Dies alles geschieht im Haupt-Thread
+            des Knotens.
+        </p>
+        <p>
+            Sobald ein Paket über den geöffneten TCP-Port ankommt, erstellt der Knoten einen neuen Worker-Thread und
+            übergibt ihm das Paket zur weiteren Bearbeitung. Für den Haupt-Thread ist die Arbeit bezüglich dieses Pakets
+            somit erledigt und er wartet auf die Ankunft des nächsten Pakets. Der Knoten arbeitet also nach dem
+            Boss-Worker-Modell. Der Haupt-Thread, der das Nadelör des Knotens darstellt, soll also möglichst wenig
+            Arbeit zu erledigen haben. Die Hauptarbeit wird von den Worker-Threads erledigt, damit die
+            Paketbearbeitung parallel und somit möglichst schnell ablaufen kann.
+        </p>
+        <!--TODO: Boss-Worker Bildchen -->
+        <p>
+            Ein Worker-Thread bearbeitet das ihm übergebene Paket weiter. Je nach Typ des
+            Pakets<span class="footnote">Siehe Aufgabenstellung</span> wird dabei unterschiedlich vorgegangen.
         </p>
 
-        <h2>Handshake</h2>
+        <h2>Verbindung zu Nachbar</h2>
+        <p>
+            Ein Netzwerk kann nur funktionieren, wenn die einzelnen Knoten miteinander kommunizieren können. Zu diesem
+            Zweck unterhält jeder Knoten eine Liste mit all seinen Nachbaren. Nachbaren sind alle Knoten, deren
+            IP-Adresse und TCP-Port bekannt ist und denen ein Paket direkt (d.h. ohne Umwege über andere Knoten)
+            zugestellt werden kann. Erhält der Knoten ein Verbindungspaket, wird der im Paket codierte Nachbar zur
+            Nachbarenliste hinzugefügt. Befindet sich dieser bereits in der Nachbarenliste, wird nichts unternommen.
+        </p>
+        <p>
+            Verbindungen in diesem Netzwerk sind bidirektional. Das heisst, dass wenn A ein Nachbar von B ist, B
+            ebenfalls ein Nachbar von A ist. Deshalb muss jeder Knoten beim Erhalt eines Verbindungspaketes
+            sicherstellen, dass er beim gerade hinzugefügten Knoten auch als Nachbar hinzugefügt wird. Zu diesem Zweck
+            ersetzt der Knoten zuerst die Nachricht im Paket mit seiner IP und seinem TCP-Port und schickt das Paket
+            danach an seinen neuen Nachbarn. Diese Art der Verbindungsherstellung wird als
+            <i>Handshake</i><span class="footnote">Englisch für Händeschütteln</span> bezeichnet.
+
+            <!--TODO: Bildchen vom Handshake -->
+        </p>
+        <p>
+            Um ein endloses Hin- und Hersenden von Verbindungspaketen zu verhindern, wird der Handshake nur durchgeführt,
+            wenn sich der entsprechende Nachbar noch nicht in der Nachbarenliste befindet.
+        </p>
+
+        <h2>Router</h2>
         <p>
             Placeholder
         </p>
 
-        <h2>Router</h2>
+        <h2>Packet-Forwarding</h2>
         <p>
             Placeholder
         </p>

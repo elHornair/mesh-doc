@@ -188,10 +188,51 @@
             wenn sich der entsprechende Nachbar noch nicht in der Nachbarenliste befindet.
         </p>
 
-        <h2>Router</h2>
+        <h2>Routing</h2>
         <p>
-            Placeholder
+            Der Router, beziehungsweise die Routingtabelle stellt eine Kernkomponente jedes Knotens dar. Hier wird
+            gespeichert, an welchen Nachbarn ein Paket gesendet werden muss, wenn es den Ziel-, bzw. den Quellknoten
+            erreichen will.
         </p>
+        <p>
+            Nach dem Start des Knotens ist die Routingtabelle zunächst leer. Mit dem Erhalten von Paketen, wird sie nach
+            und nach ausgefüllt. Die Applikation nutzt dabei aus, dass Nachrichtenpakete immer entweder vom Quell-
+            zum Zielknoten oder in die Gegenrichtung gesendet werden. Erhält ein Knoten also ein Paket, das für den
+            Zielknoten bestimmt ist, kann er daraus schliessen, dass der Nachbar, von dem er das Paket erhalten hat, der
+            Nachbar ist, der am nähesten am Quellknoten ist. Dieser Nachbarknoten wird deshalb in der Routingtabelle
+            als Nachbar für Pakete eingetragen, die für den Quellknoten bestimmt sind. Der umgekehrte Fall gilt ebenso.
+        </p>
+        <table>
+            <caption>Beispiel Routingtabelle</caption>
+            <tr>
+                <th>Ziel des Pakets</th>
+                <th>Weiterleiten an Nachbar</th>
+                <th>Bemerkung</th>
+            </tr>
+            <tr>
+                <td>Quellknoten</td>
+                <td>Localhost, 3336</td>
+                <td>Pakete, die für den Quellknoten bestimt sind, werden an den lokalen Nachbarn auf Port 3336
+                    weitergeleitet.</td>
+            </tr>
+            <tr>
+                <td>Zielknoten</td>
+                <td>0</td>
+                <td>Eine 0 bedeutet, dass der entsprechende Nachbar noch nicht bekannt ist. In diesem Fall wird das
+                    Netzwerk geflutet<span class="footnote">Siehe Kapitel <i>Packet-Forwarding</i></span>.</td>
+            </tr>
+        </table>
+        <p>
+            Die Routingtabelle überschreibt niemals Einträge, denn sonst könnte es passieren, dass bestehende Routen durch
+            langsamere überschrieben werden. Das erste Paket, das einen Knoten erreicht, kam immer über die schnellste
+            Route. Deshalb ist die erste eingetragene Route immer die schnellste.
+        </p>
+        <p>
+            Dieses Vorgehen hat den Nachteil, dass bestehende Routen niemals gelöscht werden. Dies wäre zum Beispiel
+            nötig, wenn ein bestimmter Knoten vom Netz genommen und die Route so ungültig werden würde. In dieser
+            Applikation ist dies jedoch kein Problem, da die Aufgabenstellung nicht spezifiziert, dass Knoten vom Netz
+            genommen werden können.
+        <p>
 
         <h2>Packet-Forwarding</h2>
         <p>

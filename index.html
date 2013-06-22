@@ -29,25 +29,82 @@
     <div class="chapter">
         <h1>Projektbeschreibung</h1>
 
-        <h2>Ausgangslage</h2>
-        <p>
-            Placeholder
-        </p>
-
         <h2>Ziel der Arbeit</h2>
         <p>
-            Placeholder
+            Es soll eine Applikation entwickelt werden, die das Routing von Netzwerkpaketen simuliert. Die Applikation
+            muss in C geschrieben werden.
         </p>
 
         <h2>Aufgabenstellung</h2>
         <p>
-            Placeholder
+            Das Aufgabe wurde gemeinsam in der Klasse spezifiziert
+            <span class="footnote source">
+                Systemsoftware Mesh Projekt<span class="additional">, Abgerufen am 01.05.2013 von
+                http://edu.panter.ch/Mesh</span></span>. Die Netzwerkpakete sollen folgendes Format haben:
         </p>
+        <table>
+            <caption>Format Netzwerkpakete</caption>
+            <tr>
+                <th>Grösse</th>
+                <th>Datum</th>
+            </tr>
+            <tr>
+                <td>2 Bytes</td>
+                <td>Paket-ID</td>
+            </tr>
+            <tr>
+                <td>1 Byte</td>
+                <td>Ziel (1) oder Quelle (0)</td>
+            </tr>
+            <tr>
+                <td>1 Byte</td>
+                <td>Paket-Typ ('C', 'O' oder 'N')</td>
+            </tr>
+            <tr>
+                <td>128 Bytes</td>
+                <td>Inhalt</td>
+            </tr>
+        </table>
+        <p>
+            Der Paket-Typ hat dabei folgende Bedeutung:
+        </p>
+        <ul>
+            <li>C: Inhaltspaket. Der Inhaltsteil enthält dann die zu übermittelnde Nachricht. Ein Mesh Switch, leitet
+                nur das erste Paket mit einer Paket-ID weiter, die folgenden Pakete mit der gleichen Paket-ID wirft er
+                weg.</li>
+            <li>O: OK-Paket. Dieses signalisiert, dass das Paket angekommen ist. Ein Paket, das sein Ziel erreicht, wird
+                mit einem O-Paket beantwortet. Die Paket-ID ist dabei identisch mit jener des zu bestätigenden C-Pakets</li>
+            <li>N: Verbindungspaket. Dieses Paket weist einen Mesh Switch an, sich mit einem neuen Nachbarn zu verbinden.
+                Der Inhalt des Pakets enthält dann 4 Bytes mit der IP Adresse und 2 Bytes mit dem TCP Port des
+                entsprechenden Nachbarn.</li>
+        </ul>
+        <p>
+            Das Executable soll folgendes Interface aufweisen: "mesh portnum [-q|-z]". Die Parameter bedeuten dabei
+            Folgendes:
+        </p>
+        <ul>
+            <li>"portnum" ist eine TCP-Portnummer. Default ist 3333</li>
+            <li>Es kann entweder "-q", "-z", oder nichts als zusätzliches Argument angegeben werden</li>
+            <li>Wenn als Argument "-q" angegeben wird, dann ist der Mesh Router die Quelle</li>
+            <li>Wenn als Argument "-z" angegeben wird, dann ist der Mesh Router das Ziel</li>
+        </ul>
 
         <h2>Erwartete Resultate</h2>
-        <p>
-            Placeholder
-        </p>
+        <ul>
+            <li>
+                Es soll eine Anwedung entwickelt werden, die folgende Anforderungen erfüllt:
+                <ul>
+                    <li>Kein global Lock</li>
+                    <li>Verwendung von Pthreads</li>
+                    <li>Muss vorgegebenes Testprogramm bestehen</li>
+                    <li>Soll im "tgz"-Format abgegeben werden</li>
+                    <li>Muss mit "make" kompiliert werden können</li>
+                    <li>Format der Pakete muss der Spezifikation entsprechen</li>
+                    <li>Interface des Executables muss der Spezifikation entsprechen</li>
+                </ul>
+            </li>
+            <li>Dokumentation, welche das Konzept des Prototyps sowie Probleme, die aufgetaucht sind, beschreibt.</li>
+        </ul>
 
         <h2>Einschränkungen</h2>
         <p>

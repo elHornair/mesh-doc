@@ -456,11 +456,47 @@
                 <th>Ist</th>
             </tr>
             <tr>
-                <td>Ziel</td>
-                <td>Erfüllt/Nicht erfüllt, siehe Kapitel xx</td>
+                <td>Anwendung: Kein global Lock</td>
+                <td>Erfüllt, siehe Anwendung (Code)</td>
+            </tr>
+            <tr>
+                <td>Anwendung: Verwendung von Pthreads</td>
+                <td>Erfüllt, siehe Anwendung (Code)</td>
+            </tr>
+            <tr>
+                <td>Anwendung: Muss vorgegebenes Testprogramm bestehen</td>
+                <td>Erfüllt, siehe folgenden Abschnitt</td>
+            </tr>
+            <tr>
+                <td>Anwendung: Soll im <i>tgz</i>-Format abgegeben werden</td>
+                <td>Erfüllt, siehe Abgabe</td>
+            </tr>
+            <tr>
+                <td>Anwendung: Muss mit <i>make</i> kompiliert werden können</td>
+                <td>Erfüllt, siehe Anwendung (README.md)</td>
+            </tr>
+            <tr>
+                <td>Anwendung: Format der Pakete muss der Spezifikation entsprechen</td>
+                <td>Erfüllt, siehe Anwendung (Code)</td>
+            </tr>
+            <tr>
+                <td>Anwendung: Interface des Executables muss der Spezifikation entsprechen</td>
+                <td>Erfüllt, siehe Anwendung (Code, README.md)</td>
+            </tr>
+            <tr>
+                <td>Dokumentation, welche das Konzept des Prototyps sowie Probleme, die aufgetaucht sind, beschreibt</td>
+                <td>Erfüllt, siehe Kapitel 3 und 4</td>
             </tr>
         </table>
-        <!--TODO: ein paar Worte dazu verlieren, welche Fälle getestet wurden und so-->
+        <p>
+            Mit Hilfe des Testprogramms wurden folgende Fälle erfolgreich getestet:
+        </p>
+        <ul>
+            <li>Netzwerk mit einem Startknoten, einem Zwischenknoten und einem Zielknoten. Ein Paket geschickt.</li>
+            <li>Netzwerk mit einem Startknoten, einem Zwischenknoten und einem Zielknoten. Zehn Pakete geschickt.</li>
+            <li>Netzwerk mit einem Startknoten, hundert Zwischenknoten und einem Zielknoten. Ein Paket geschickt.</li>
+            <li>Netzwerk mit einem Startknoten, hundert Zwischenknoten und einem Zielknoten. Zehn Pakete geschickt.</li>
+        </ul>
 
         <h2>Arbeitsprozess</h2>
         <p>

@@ -355,9 +355,47 @@
               aber Kapazität der Nachricht wird auf 122 Byte verkleinert
         </p>
 
-        <h2>Riesige Routing-Tabelle</h2>
+        <h2>Riesige schwarze Liste</h2>
         <p>
-            - Modulo 255 rechnen
+            Die schwarze Liste für bereits weitergeleitete Nachrichtenpakete muss potentiell alle Paket-IDs aufnehmen
+            können. Da die Paket-ID 2 Bytes gross ist, muss die schwarze Liste Platz für bis zu
+            <span class="code">2^16 = 65536</span> Einträge bieten. Dies kommt einem enormen Speicherplaztverschleiss
+            gleich, da kaum jemals alle 65536 IDs in die Tabelle aufgenommen werden müssen.
+        </p>
+        <p>
+            Um Platz zu sparen, wird deshalb ein <i>Hash</i> der Paket-ID erstellt erstellt, indem nur die acht
+            niederwertigsten Bits übernommen werden. Dieser Hash wird dann als Schlüssel für die Einträge der schwarzen
+            Liste verwendet. Als Wert des jeweiligen Eintrags wird die vollständige Paket-ID gespeichert. In der
+            schwarzen Liste befindet sich also jeweils diejenige Paket-ID, die als letzte einen bestimmten Hash
+            produziert hat. Wird derselbe Hash von einer anderen Paket-ID erneut produziert, wird der Eintrag
+            überschrieben. Daraus folgt, dass eine Paket-ID nur solange gesperrt ist, bis ein Paket eintrifft, das
+            den gleichen Hash produziert. Das ist so akzeptabel, weil die Paket-IDs aufsteigend nummeriert werden und
+            deshalb nur jedes 256. Paket den gleichen Hash produziert. Da die Chance gross ist, dass Pakete, die wegen
+            der schwarzen Liste ignoriert werden müssen sehr kurz nacheinander eintreffen, müssen sie sich auch nur sehr
+            kurz in der Liste befinden (kürzer als 256 Pakete lang).
+        </p>
+
+        <table>
+            <caption>Beispiele für Hashing der Paket-ID</caption>
+            <tr>
+                <th>Originale Paket-ID</th>
+                <th>Dazugehöriger Hash</th>
+            </tr>
+            <tr>
+                <td>10010110 <strong>01101011</strong></td>
+                <td>01101011</td>
+            </tr>
+            <tr>
+                <td>11001011 <strong>11001110</strong></td>
+                <td>11001110</td>
+            </tr>
+            <tr>
+                <td>00111000 <strong>11001110</strong></td>
+                <td>11001110</td>
+            </tr>
+        </table>
+        <p>
+            Die Anzahl von Einträgen in der schwarzen Liste kann so von 65536 auf 256 reduziert werden.
         </p>
 
         <h2>Segfaults</h2>

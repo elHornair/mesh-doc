@@ -74,9 +74,9 @@
                 weg.</li>
             <li>O: OK-Paket. Dieses signalisiert, dass das Paket angekommen ist. Ein Paket, das sein Ziel erreicht, wird
                 mit einem O-Paket beantwortet. Die Paket-ID ist dabei identisch mit jener des zu bestätigenden C-Pakets</li>
-            <li>N: Verbindungspaket. Dieses Paket weist einen Mesh Switch an, sich mit einem neuen Nachbarn zu verbinden.
+            <li>N: Verbindungspaket. Dieses Paket weist einen Mesh Switch an, sich mit einem neuen Nachbaren zu verbinden.
                 Der Inhalt des Pakets enthält dann 4 Bytes mit der IP Adresse und 2 Bytes mit dem TCP Port des
-                entsprechenden Nachbarn.</li>
+                entsprechenden Nachbaren.</li>
         </ul>
         <p>
             Das Executable soll folgendes Interface aufweisen: <span class="code">mesh portnum [-q|-z]</span>. Die Parameter bedeuten dabei
@@ -172,7 +172,7 @@
             <figcaption>Der Haupt-Thread verteilt ankommende Pakete an die Worker</figcaption>
         </figure>
 
-        <h2>Verbindungen zu Nachbarn</h2>
+        <h2>Verbindungen zu Nachbaren</h2>
         <p>
             Ein Netzwerk kann nur funktionieren, wenn die einzelnen Knoten miteinander kommunizieren können. Zu diesem
             Zweck unterhält jeder Knoten eine Liste mit all seinen Nachbaren. Nachbaren sind alle Knoten, deren
@@ -185,7 +185,7 @@
             ebenfalls ein Nachbar von A ist. Deshalb muss jeder Knoten beim Erhalt eines Verbindungspaketes
             sicherstellen, dass er beim gerade hinzugefügten Knoten auch als Nachbar hinzugefügt wird. Zu diesem Zweck
             ersetzt der Knoten zuerst die Nachricht im Paket mit seiner IP und seinem TCP-Port und schickt das Paket
-            danach an seinen neuen Nachbarn. Diese Art der Verbindungsherstellung wird als
+            danach an seinen neuen Nachbaren. Diese Art der Verbindungsherstellung wird als
             <i>Handshake</i><span class="footnote">Englisch für Händeschütteln</span> bezeichnet.
         </p>
         <figure>
@@ -200,7 +200,7 @@
         <h2>Routing</h2>
         <p>
             Der Router, beziehungsweise die Routingtabelle stellt eine Kernkomponente jedes Knotens dar. Hier wird
-            gespeichert, an welchen Nachbarn ein Paket gesendet werden muss, wenn es den Ziel-, bzw. den Quellknoten
+            gespeichert, an welchen Nachbaren ein Paket gesendet werden muss, wenn es den Ziel-, bzw. den Quellknoten
             erreichen will.
         </p>
         <p>
@@ -221,7 +221,7 @@
             <tr>
                 <td>Quellknoten</td>
                 <td>Localhost, 3336</td>
-                <td>Pakete, die für den Quellknoten bestimt sind, werden an den lokalen Nachbarn auf Port 3336
+                <td>Pakete, die für den Quellknoten bestimt sind, werden an den lokalen Nachbaren auf Port 3336
                     weitergeleitet.</td>
             </tr>
             <tr>
@@ -248,9 +248,9 @@
             Erhält ein Knoten ein Nachrichtenpaket, ist es in den meisten Fällen nicht für ihn selbst bestimmt. In
             diesen Fällen muss der Knoten das Paket gemäss dem Paket-Ziel weiterleiten<span class="footnote">Englisch:
             To forward</span>. Dazu wird in der Routingtabelle nachgeschlagen, ob es für das entsprechende Ziel einen
-            Eintrag gibt. Wenn ja, wird das Paket an den entsprechenden Nachbarn weitergeleitet. Falls der Nachbar nicht
+            Eintrag gibt. Wenn ja, wird das Paket an den entsprechenden Nachbaren weitergeleitet. Falls der Nachbar nicht
             bekannt ist, bleibt dem Knoten nichts anderes übrig, als das Netzwerk mit Paketen zu fluten. Dabei wird das
-            Paket an jeden bekannten Nachbarn geschickt, in der Hoffnung, dass sich darunter auch der richtige befindet.
+            Paket an jeden bekannten Nachbaren geschickt, in der Hoffnung, dass sich darunter auch der richtige befindet.
         </p>
         <figure>
             <img src="img/flooding.png">
@@ -288,7 +288,7 @@
             Beim Rückweg des Pakets als OK-Paket gestaltet sich das Routing sehr einfach, da optimale Route bereits
             bekannt bekannt ist: Jeder Knoten, der in der Route vorkommt, hat ja das ursprüngliche Paket schon einmal
             empfangen und hat deshalb einen entsprechenden Eintrag in der Routingtabelle. So weiss jeder Knoten sofort,
-            an welchen Nachbarn er das Paket weiterleiten muss. Sollte sich aus unerfindlichen Gründen einmal kein
+            an welchen Nachbaren er das Paket weiterleiten muss. Sollte sich aus unerfindlichen Gründen einmal kein
             Eintrag in der Routingtabelle finden, der dem Paket den Weg weist, wird wie gehabt das Netzwerk geflutet.
         </p>
         <p>

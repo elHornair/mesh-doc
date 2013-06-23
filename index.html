@@ -398,10 +398,20 @@
             Die Anzahl von Einträgen in der schwarzen Liste kann so von 65536 auf 256 reduziert werden.
         </p>
 
-        <h2>Segfaults</h2>
+        <h2>Segmentation Faults</h2>
         <p>
-            - GDB hat geholfen
+            Als unerfahrener C-Programmierer hatte ich oft das Problem, dass das Programm zwar kompilierte, zur Laufzeit
+            aber ein <i>segmentation fault</i> geworfen wurde. Segmentation faults werden beispielsweise produziert,
+            wenn ein uninitialisierter Pointer benutzt wird, oder wenn versucht wird, auf nichtexistenen Speicherplatz
+            zuzugreifen. Beim Beseitigen dieser Programmfehler war der Debugger GDB<span class="footnote source">
+                GDB developers (2013), The GNU Project Debugger<span class="additional">, Abgerufen am 23.06.2013 von
+                http://www.gnu.org/software/gdb/</span></span> einer grosse Hilfe. Damit können unter anderem
+            <i>Breakpoints</i> gesetzt und Speicherinhalte ausgegeben werden.
         </p>
+        <figure>
+            <img src="img/gdb_screenshot.png">
+            <figcaption>Debugging mit GDB</figcaption>
+        </figure>
     </div>
 
     <div class="chapter">

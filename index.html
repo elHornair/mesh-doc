@@ -294,7 +294,7 @@
         <p>
             Da ein OK-Paket die gleiche ID hat, wie das zu ihm gehörende Nachrichtenpaket, sind die IDs der OK-Pakete
             im Normalfall bereits in der schwarzen Liste erfasst. Damit die OK-Pakete den ursprünglichen Absender einer
-            Nachricht trotzdem erreichen können, wird die schwarzse Liste beim Senden von OK-Paketen nicht beachtet.
+            Nachricht trotzdem erreichen können, wird die schwarze Liste beim Senden von OK-Paketen nicht beachtet.
         </p>
         <p>
             Sobald ein OK-Paket wieder beim ursprünglichen Absender der Nachricht angekommen ist, gibt dieser eine
@@ -338,7 +338,7 @@
             dass in der Zwischenzeit ein anderer Thread auf die schwarze Liste zugreift.
         </p>
         <p>
-            Es wurde deshalb ein <i>Mutex</i> für die schwarzse Liste eingeführt. Mit
+            Es wurde deshalb ein <i>Mutex</i> für die schwarze Liste eingeführt. Mit
             <span class="code">pthread_mutex_lock</span> wird deshalb vor dem Start der atomaren Operation ein Schloss
             um die schwarze Liste gehängt. Nachdem die Operation vollständig ausgeführt wurde, wird das Schloss mit
             <span class="code">pthread_mutex_unlock</span> wieder entfernt.

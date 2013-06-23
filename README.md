@@ -12,4 +12,4 @@ technologies and can be compiled with [Prince](http://www.princexml.com/). It wa
     prince --javascript index.html && gnome-open index.pdf
 
 ## Cut first page (dummy page)
-- gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -dFirstPage=2 -dLastPage=[TotalAmountOfPages] -sOutputFile=documentation_final.pdf index.pdf
+- gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -dFirstPage=2 -dLastPage=19 -sOutputFile=documentation_final.pdf index.pdf

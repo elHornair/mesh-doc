@@ -184,9 +184,11 @@
             ersetzt der Knoten zuerst die Nachricht im Paket mit seiner IP und seinem TCP-Port und schickt das Paket
             danach an seinen neuen Nachbarn. Diese Art der Verbindungsherstellung wird als
             <i>Handshake</i><span class="footnote">Englisch für Händeschütteln</span> bezeichnet.
-
-            <!--TODO: Bildchen vom Handshake -->
         </p>
+        <figure>
+            <img src="img/handshake.png">
+            <figcaption>Verbinden von zwei Knoten mittels Handshake</figcaption>
+        </figure>
         <p>
             Um ein endloses Hin- und Hersenden von Verbindungspaketen zu verhindern, wird der Handshake nur durchgeführt,
             wenn sich der entsprechende Nachbar noch nicht in der Nachbarenliste befindet.

@@ -156,7 +156,10 @@
             des Knotens.
         </p>
         <p>
-            Sobald ein Paket über den geöffneten TCP-Port ankommt, erstellt der Knoten einen neuen Worker-Thread und
+            Sobald ein Paket über den geöffneten TCP-Port ankommt, erstellt der Knoten mittels
+            <i>Pthreads</i><span class="footnote source">Barney, Blaise; Livermore, Lawrence (2013), POSIX Threads
+            Programming<span class="additional">, Abgerufen am 05.06.2013 von
+            https://computing.llnl.gov/tutorials/pthreads/</span></span> einen neuen Worker-Thread und
             übergibt ihm das Paket zur weiteren Bearbeitung. Für den Haupt-Thread ist die Arbeit bezüglich dieses Pakets
             somit erledigt und er wartet auf die Ankunft des nächsten Pakets. Der Knoten arbeitet also nach dem
             Boss-Worker-Modell. Der Haupt-Thread, der das Nadelör des Knotens darstellt, soll also möglichst wenig
@@ -430,12 +433,12 @@
             Anwendung den entsprechenden Port benutzt.
         </p>
         <p>
-            Das Testprogramm<span class="footnote source">Pospíšek, Tomáš (2013), Mesh-Network-Py
-            <span class="additional">, Abgerufen am 23.06.2013 von https://github.com/tpo/mesh-network-py</span></span>
-            verfügt über kein Interface, über das ihm Knoten mitteilen können, dass ein bestimmter Port
-            schon besetzt ist. Falls versucht wird, einen bereits besetzten Port nochmals zu belegen, bleibt der
-            Mesh-Applikation deshalb nichts anderes übrig, als einen Fehler auszugeben. In diesem Fall muss das
-            Testprogramm mit einem anderen Startport nochmals gestartet werden.
+            Das Testprogramm<span class="footnote source">Pospíšek, Tomáš (2013),
+            Mesh-Network-Py<span class="additional">, Abgerufen am 23.06.2013 von
+            https://github.com/tpo/mesh-network-py</span></span> verfügt über kein Interface, über das ihm Knoten
+            mitteilen können, dass ein bestimmter Port schon besetzt ist. Falls versucht wird, einen bereits besetzten
+            Port nochmals zu belegen, bleibt der Mesh-Applikation deshalb nichts anderes übrig, als einen Fehler
+            auszugeben. In diesem Fall muss das Testprogramm mit einem anderen Startport nochmals gestartet werden.
         </p>
 
         <h2>Ausgabe muss gepadded werden</h2>

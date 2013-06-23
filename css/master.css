@@ -71,6 +71,10 @@ a {
     padding: 0;
 }
 
+.chapter > p {
+    text-align: justify;
+}
+
 .chapter table {
     width: 100%;
     margin-top: 6mm;

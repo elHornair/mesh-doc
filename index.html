@@ -309,11 +309,44 @@
             Kapitel den Problemen, auf die ich beim Umsetzen der Anwendung gestossen bin.
         </p>
 
-        <h2>Concurrency-Problem</h2>
+        <h2>Nebenläufigkeit / Geteilte Ressourcen</h2>
         <p>
-            - Liste mit Nachbaren / Router / was noch?
-            - mutexe verwenden
+            Um Pakete möglichst schnell bearbeiten zu können, wird diese Aufgabe vom jeweiligen Knoten an seine
+            Worker-Threads delegiert. So können Pakete parallel verarbeitet werden. Dies bringt allerdings den Nachteil
+            mit sich, dass der Zugriff auf gemeinsame Ressourcen synchronisiert werden muss - Ansonsten kann es
+            passieren, dass zwei gleichzeitig auf eine Ressource zugreifende Threads zu einem Fehlverhalten der
+            Applikation führen. Folgendes Szenario wäre vorstellbar:
         </p>
+        <ol>
+            <li><p>Worker A erhält Paket #1 zur Bearbeitung. Er erkennt, dass es nicht für ihn bestimmt ist und er es
+                deshalb weiterleiten muss.</p></li>
+            <li><p>Worker A überprüft, ob das Paket #1 in der schwarzen Liste eingetragen ist. Dies ist nicht der Fall.
+                </p></li>
+            <li><p>Worker B erhält ebenfalls eine Version von Paket #1 zur Bearbeitung. Diese Version hat den Knoten auf
+                einem anderen Weg erreicht. Worker B erkennt ebenfalls, dass er das Paket weiterleiten muss.</p></li>
+            <li><p>Worker B überprüft, ob das Paket #1 in der schwarzen Liste eingetragen ist. Dies ist noch nicht der
+                Fall, da sich die schwarze Liste bisher nicht verändert hat.</p></li>
+            <li><p>Worker A fügt Paket #1 zur schwarzen Liste hinzu.</p></li>
+            <li><p>Worker A flutet das Netzwerk mit Paket #1.</p></li>
+            <li><p>Worker B fügt Paket #1 ebenfallst zur schwarzen Liste hinzu.</p></li>
+            <li><p>Worker B flutet das Netzwerk ebenfalls mit Paket #1. Die Nachbaren des Knotens werden somit zweimal
+                mit Versionen von Paket #1 geflutet.</p></li>
+        </ol>
+        <p>
+            Aus diesem Beispiel folgt, dass das Lesen und Anpassen der schwarzen Liste <i>atomare Operationen</i> sind.
+            Das bedeutet, dass diese beiden Operationen immer direkt aufeinander folgend ausgeführt werden müssen, ohne
+            dass in der Zwischenzeit ein anderer Thread auf die schwarze Liste zugreift.
+        </p>
+        <p>
+            Es wurde deshalb ein <i>Mutex</i> für die schwarzse Liste eingeführt. Mit
+            <span class="code">pthread_mutex_lock</span> wird deshalb vor dem Start der atomaren Operation ein Schloss
+            um die schwarze Liste gehängt. Nachdem die Operation vollständig ausgeführt wurde, wird das Schloss mit
+            <span class="code">pthread_mutex_unlock</span> wieder entfernt.
+        </p>
+        <p>
+            Vergleichbare Probleme entstehen beim Bearbeiten der Routingtabelle und der Liste der eingetragenen
+            Nachbaren. Auch für die Verwaltung dieser Listen werden deshalb Mutexe verwendet.
+        <p>
 
         <h2>Problem, dass man nicht weiss, von wem das OK-Paket kommt</h2>
         <p>

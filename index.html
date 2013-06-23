@@ -96,7 +96,9 @@
                 <ul>
                     <li>Kein global Lock</li>
                     <li>Verwendung von Pthreads</li>
-                    <li>Muss vorgegebenes Testprogramm bestehen</li>
+                    <li>Muss vorgegebenes Testprogramm<span class="footnote source">Pospíšek, Tomáš (2013),
+                        Mesh-Network-Py<span class="additional">, Abgerufen am 23.06.2013 von
+                        https://github.com/tpo/mesh-network-py</span></span> bestehen</li>
                     <li>Soll im <i>tgz</i>-Format abgegeben werden</li>
                     <li>Muss mit <i>make</i> kompiliert werden können</li>
                     <li>Format der Pakete muss der Spezifikation entsprechen</li>
@@ -430,9 +432,7 @@
             Anwendung den entsprechenden Port benutzt.
         </p>
         <p>
-            Das Testprogramm<span class="footnote source">Pospíšek, Tomáš (2013),
-            Mesh-Network-Py<span class="additional">, Abgerufen am 23.06.2013 von
-            https://github.com/tpo/mesh-network-py</span></span> verfügt über kein Interface, über das ihm Knoten
+            Das Testprogramm verfügt über kein Interface, über das ihm Knoten
             mitteilen können, dass ein bestimmter Port schon besetzt ist. Falls versucht wird, einen bereits besetzten
             Port nochmals zu belegen, bleibt der Mesh-Applikation deshalb nichts anderes übrig, als einen Fehler
             auszugeben. In diesem Fall muss das Testprogramm mit einem anderen Startport nochmals gestartet werden.

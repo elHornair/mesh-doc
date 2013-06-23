@@ -337,9 +337,11 @@
         </p>
         <p>
             Es wurde deshalb ein <i>Mutex</i> für die schwarze Liste eingeführt. Mit
-            <span class="code">pthread_mutex_lock</span> wird deshalb vor dem Start der atomaren Operation ein Schloss
+            <span class="code">pthread_mutex_lock</span> wird vor dem Start der atomaren Operation ein Schloss
             um die schwarze Liste gehängt. Nachdem die Operation vollständig ausgeführt wurde, wird das Schloss mit
-            <span class="code">pthread_mutex_unlock</span> wieder entfernt.
+            <span class="code">pthread_mutex_unlock</span> wieder entfernt. Mit Hilfe von Bedingungsvariablen und
+            <span class="code">pthread_cond_wait</span> / <span class="code">pthread_cond_broadcast</span> wird gewartet, falls eine Ressource gerade
+            gesperrt ist.
         </p>
         <p>
             Vergleichbare Probleme entstehen beim Bearbeiten der Routingtabelle und der Liste der eingetragenen

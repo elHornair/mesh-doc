@@ -348,11 +348,20 @@
             Nachbaren. Auch für die Verwaltung dieser Listen werden deshalb Mutexe verwendet.
         <p>
 
-        <h2>Problem, dass man nicht weiss, von wem das OK-Paket kommt</h2>
+        <h2>Identität von Paket-Absender</h2>
         <p>
-            - Node, der z.B. auf Port 3334 läuft, macht fürs senden eines Pakets eine neue Verbindung auf -> kann man also nicht benutzen
-            - Lösung: Ans Ende der Nachricht wird immer noch der Absender-Port angehängt -> Paket wird deshalb nicht grösser,
-              aber Kapazität der Nachricht wird auf 122 Byte verkleinert
+            Ein Knoten verfügt in der Regel über mehrere Nachbaren. Um die Routingtabelle korrekt aufzufüllen, ist ein
+            Knoten darauf angewiesen zu wissen, von welchem seiner Nachbaren er ein bestimmtes Paket erhalten hat. Der
+            Nachbar kann jedoch nicht über die TCP-Verbindung, über die das Paket gesendet wurde, ausfindig gemacht
+            werden. Dieser sendet Pakete nämlich nicht über den gleichen Port, über den er Pakete empfängt (und über
+            den er identifiziert wird), denn er macht dazu eine neue TCP-Verbindung auf. Folglich muss der Nachbar seine
+            Identität beim Versenden eines Pakets zusätzlich mitteilen.
+        </p>
+        <p>
+            Zu diesem Zweck wird ans Ende der Nachricht eines Pakets die Identität des Absenders (bestehend aus
+            IP-Adresse und Port) geschrieben. Das Paket wird dadurch nicht grösser, die Kapazität der Nachricht wird jedoch
+            um 6 Byte auf 122 Byte verkleinert. Dies bringt den Nachteil mit sich, dass für Nachrichten, die zwischen
+            122 und 128 Byte gross sind, ein zusätzliches Paket übermittelt werden muss.
         </p>
 
         <h2>Riesige schwarze Liste</h2>

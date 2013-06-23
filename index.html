@@ -421,16 +421,18 @@
             <img src="img/gdb_screenshot.png">
             <figcaption>Debugging mit GDB</figcaption>
         </figure>
-    </div>
 
-    <div class="chapter">
-        <h1>Ungelöste Probleme</h1>
-
-        <h2>Ports bleiben manchmal besetzt</h2>
+        <h2>Besetzte Ports</h2>
         <p>
-            - Nach Laufen des Testprogramms (nicht immer, nicht reproduzierbar)
-            - Testprogramm hat aber kein Interface, über das man ihm mitteilen kann, dass ein Port schon besetzt ist
-            - Mögliche Lsg: Auf fixem port einen zentralen Node starten, der Aliase verwaltet
+            Beim Initialisieren eines neuen Knotens kommt es vor, dass der Port, auf dem der Knoten auf ankommente
+            Pakete warten soll, bereits besetzt ist. Dabei kann es sich unter Umständen um Überbleibsel von vorherigen
+            Mesh-Knoten handeln. Es ist allerdings auch möglich, dass eine von der Mesh-Applikation unabhängige
+            Anwendung den entsprechenden Port benutzt.
+        </p>
+        <p>
+            Das Testprogramm verfügt über kein Interface, über das ihm Knoten mitteilen können, dass ein bestimmter Port
+            schon besetzt ist. Falls versucht wird, einen bereits besetzten Port nochmals zu belegen, bleibt der
+            Mesh-Applikation deshalb nichts anderes übrig, als einen Fehler auszugeben.
         </p>
 
         <h2>Ausgabe muss gepadded werden</h2>
